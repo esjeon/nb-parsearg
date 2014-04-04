@@ -1,0 +1,332 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["ParseArg", "Title"],
+
+Cell["A command-line argument parser", "Subtitle"],
+
+Cell[CellGroupData[{
+
+Cell["Function", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ParseArg", "[", 
+     RowBox[{"args_", ",", "pats_"}], "]"}], ":=", "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "CurrentFlag", ",", "CurrentToken", ",", "ReadString", ",", 
+        "ReadNumber", ",", "ReadChar"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Module", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"as", ",", "cs", ",", "flg", ",", "tok"}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"CurrentFlag", "[", "]"}], ":=", "flg"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"CurrentToken", "[", "]"}], ":=", "tok"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"ReadChar", "[", "]"}], ":=", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Length", "[", "cs", "]"}], ">", "1"}], ")"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"cs", "=", 
+              RowBox[{"Rest", "[", "cs", "]"}]}], ";", 
+             RowBox[{"First", "[", "cs", "]"}]}], ",", "\[IndentingNewLine]", 
+            
+            RowBox[{"Throw", "[", 
+             RowBox[{
+              RowBox[{"\"\<Expect more characters after \>\"", "<>", 
+               RowBox[{"First", "[", "as", "]"}]}], ",", 
+              RowBox[{"Symbol", "[", "\"\<EParseArg\>\"", "]"}]}], "]"}]}], 
+           "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"ReadNumber", "[", "]"}], ":=", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Length", "[", "cs", "]"}], ">", "1"}], ")"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"With", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"s", "=", 
+                RowBox[{"TakeWhile", "[", 
+                 RowBox[{
+                  RowBox[{"Rest", "[", "cs", "]"}], ",", 
+                  RowBox[{
+                   RowBox[{"StringMatchQ", "[", 
+                    RowBox[{"#", ",", "DigitCharacter"}], "]"}], "&"}]}], 
+                 "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"Length", "[", "s", "]"}], ">", "0"}], ")"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"cs", "=", 
+                  RowBox[{"Drop", "[", 
+                   RowBox[{"cs", ",", 
+                    RowBox[{"Length", "[", "s", "]"}]}], "]"}]}], ";", 
+                 RowBox[{"FromDigits", "[", 
+                  RowBox[{"StringJoin", "[", "s", "]"}], "]"}]}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"Throw", "[", 
+                 RowBox[{
+                  RowBox[{"\"\<Require a number after \>\"", "<>", 
+                   RowBox[{"First", "[", "as", "]"}]}], ",", 
+                  RowBox[{"Symbol", "[", "\"\<EParseArg\>\"", "]"}]}], 
+                 "]"}]}], "\[IndentingNewLine]", "]"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Length", "[", "as", "]"}], ">", "1"}], ")"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"as", "=", 
+                RowBox[{"Rest", "[", "as", "]"}]}], ";", 
+               "\[IndentingNewLine]", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"StringMatchQ", "[", 
+                  RowBox[{
+                   RowBox[{"First", "[", "as", "]"}], ",", "NumberString"}], 
+                  "]"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"FromDigits", "[", 
+                  RowBox[{"First", "[", "as", "]"}], "]"}], ",", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"Throw", "[", 
+                  RowBox[{
+                   RowBox[{"\"\<Expected a number, but got \>\"", "<>", 
+                    RowBox[{"First", "[", "as", "]"}]}], ",", 
+                   RowBox[{"Symbol", "[", "\"\<EParseArg\>\"", "]"}]}], 
+                  "]"}]}], "\[IndentingNewLine]", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"Throw", "[", 
+               RowBox[{
+                RowBox[{"\"\<Require a number after \>\"", "<>", 
+                 RowBox[{"First", "[", "as", "]"}]}], ",", 
+                RowBox[{"Symbol", "[", "\"\<EParseArg\>\"", "]"}]}], "]"}]}], 
+             "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"ReadString", "[", "]"}], ":=", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Length", "[", "cs", "]"}], ">", "1"}], ")"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"With", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"str", "=", 
+                RowBox[{"StringJoin", "[", 
+                 RowBox[{"Rest", "[", "cs", "]"}], "]"}]}], "}"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"cs", "=", 
+                RowBox[{"{", 
+                 RowBox[{"Last", "[", "cs", "]"}], "}"}]}], ";", "str"}]}], 
+             "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Length", "[", "as", "]"}], ">", "1"}], ")"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"as", "=", 
+                RowBox[{"Rest", "[", "as", "]"}]}], ";", 
+               RowBox[{"First", "[", "as", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"Throw", "[", 
+               RowBox[{
+                RowBox[{"\"\<Expect a token after \>\"", "<>", 
+                 RowBox[{"First", "[", "as", "]"}]}], ",", 
+                RowBox[{"Symbol", "[", "\"\<EParseArg\>\"", "]"}]}], "]"}]}], 
+             "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"as", "=", "args"}], ",", 
+           RowBox[{
+            RowBox[{"Length", "[", "as", "]"}], ">", "0"}], ",", 
+           RowBox[{"as", "=", 
+            RowBox[{"Rest", "[", "as", "]"}]}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"tok", "=", 
+             RowBox[{"First", "[", "as", "]"}]}], ";", "\[IndentingNewLine]", 
+            
+            RowBox[{"flg", "=", "\"\<\>\""}], ";", "\[IndentingNewLine]", 
+            RowBox[{"cs", "=", 
+             RowBox[{"Characters", "[", 
+              RowBox[{"First", "[", "as", "]"}], "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"First", "[", "cs", "]"}], "\[NotEqual]", 
+                "\"\<-\>\""}], ")"}], ",", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"\"\<default\>\"", "/.", "pats"}], ";"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"For", "[", 
+               RowBox[{
+                RowBox[{"cs", "=", 
+                 RowBox[{"Rest", "[", "cs", "]"}]}], ",", 
+                RowBox[{
+                 RowBox[{"Length", "[", "cs", "]"}], ">", "0"}], ",", 
+                RowBox[{"cs", "=", 
+                 RowBox[{"Rest", "[", "cs", "]"}]}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"flg", "=", 
+                  RowBox[{"First", "[", "cs", "]"}]}], ";", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"flg", "/.", "pats"}], ";"}]}], 
+               "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+             "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], 
+       "\[IndentingNewLine]", "]"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Catch", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ParseArg", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+      "\"\<input1.txt\>\"", ",", "\[IndentingNewLine]", "\"\<-a\>\"", ",", 
+       "\[IndentingNewLine]", "\"\<-b\>\"", ",", "\"\<bird\>\"", ",", 
+       "\"\<-bcat\>\"", ",", "\[IndentingNewLine]", "\"\<-c\>\"", ",", 
+       "\"\<100\>\"", ",", "\"\<-c200\>\"", ",", "\[IndentingNewLine]", 
+       "\"\<-c300bdog\>\"", ",", "\[IndentingNewLine]", "\"\<input2.txt\>\"", 
+       ",", "\[IndentingNewLine]", "\"\<-di30\>\"", ",", 
+       "\[IndentingNewLine]", "\"\<-dsyay\>\"", ",", "\[IndentingNewLine]", 
+       "\"\<-f\>\"", ",", "\"\<-c999\>\""}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"\"\<a\>\"", "\[RuleDelayed]", 
+        RowBox[{"Print", "[", "\"\<Opt 'a'\>\"", "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"\"\<b\>\"", "\[RuleDelayed]", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<Opt 'b' with string '\>\"", "<>", 
+          RowBox[{"ReadString", "[", "]"}], "<>", "\"\<'\>\""}], "]"}]}], ",",
+        "\[IndentingNewLine]", 
+       RowBox[{"\"\<c\>\"", "\[RuleDelayed]", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<Opt 'c' with number '\>\"", "<>", 
+          RowBox[{"ToString", "[", 
+           RowBox[{"ReadNumber", "[", "]"}], "]"}], "<>", "\"\<'\>\""}], 
+         "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"\"\<d\>\"", "\[RuleDelayed]", 
+        RowBox[{"With", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"c", "=", 
+            RowBox[{"ReadChar", "[", "]"}]}], "}"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Which", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"c", "\[Equal]", "\"\<i\>\""}], ")"}], ",", 
+            RowBox[{"Print", "[", 
+             RowBox[{"\"\<Opt 'd' with number '\>\"", "<>", 
+              RowBox[{"ToString", "[", 
+               RowBox[{"ReadNumber", "[", "]"}], "]"}], "<>", "\"\<'\>\""}], 
+             "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"(", 
+             RowBox[{"c", "\[Equal]", "\"\<s\>\""}], ")"}], ",", 
+            RowBox[{"Print", "[", 
+             RowBox[{"\"\<Opt 'd' with string '\>\"", "<>", 
+              RowBox[{"ReadString", "[", "]"}], "<>", "\"\<'\>\""}], "]"}], 
+            ",", "\[IndentingNewLine]", 
+            RowBox[{"(", "True", ")"}], ",", 
+            RowBox[{"Throw", "[", "\"\<oops!\>\"", "]"}]}], 
+           "\[IndentingNewLine]", "]"}]}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"\"\<default\>\"", "\[RuleDelayed]", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<Argument '\>\"", "<>", 
+          RowBox[{"CurrentToken", "[", "]"}], "<>", "\"\<'\>\""}], "]"}]}], 
+       ",", "\[IndentingNewLine]", 
+       RowBox[{"_", "\[RuleDelayed]", 
+        RowBox[{"Throw", "[", 
+         RowBox[{
+          RowBox[{"\"\<Invalid flag '\>\"", "<>", 
+           RowBox[{"CurrentFlag", "[", "]"}], "<>", "\"\<'\>\""}], ",", 
+          "EParseArg"}], "]"}]}]}], "\[IndentingNewLine]", "}"}]}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", "EParseArg", 
+   ",", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Parse Error: \>\"", ",", "#1"}], "]"}], "&"}]}], 
+  "]"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Argument 'input1.txt'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'a'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'b' with string 'bird'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'b' with string 'cat'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'c' with number '100'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'c' with number '200'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'c' with number '300'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'b' with string 'dog'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Argument 'input2.txt'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'd' with number '30'\"\>"], "Print"],
+
+Cell[BoxData["\<\"Opt 'd' with string 'yay'\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Parse Error: \"\>", 
+   "\[InvisibleSpace]", "\<\"Invalid flag 'f'\"\>"}],
+  SequenceForm["Parse Error: ", "Invalid flag 'f'"],
+  Editable->False]], "Print"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TrackCellChangeTimes->False,
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+StyleDefinitions->"Default.nb"
+]
