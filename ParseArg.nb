@@ -5,6 +5,19 @@ Cell["ParseArg", "Title"],
 
 Cell["A command-line argument parser", "Subtitle"],
 
+Cell[TextData[{
+ "ParseArg is inspired by ",
+ ButtonBox["arg.h",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://man.cat-v.org/plan_9/2/arg"], None},
+  ButtonNote->"http://man.cat-v.org/plan_9/2/arg"],
+ " from \[OpenCurlyDoubleQuote]",
+ StyleBox["Plan 9 from Outer Space",
+  FontSlant->"Italic"],
+ "\[CloseCurlyDoubleQuote]."
+}], "Text"],
+
 Cell[CellGroupData[{
 
 Cell["Function", "Section"],
@@ -206,7 +219,7 @@ Cell[BoxData[
              "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], 
        "\[IndentingNewLine]", "]"}]}], "]"}]}], ";"}], 
   "\[IndentingNewLine]"}]], "Input"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -322,6 +335,35 @@ Cell[BoxData[
   Editable->False]], "Print"]
 }, Open  ]]
 }, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["License", "Section"],
+
+Cell["\<\
+Copyright \[Copyright] 2014 Eon S. Jeon <esjeon@hyunmu.am>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \
+\[OpenCurlyDoubleQuote]Software\[CloseCurlyDoubleQuote]), to
+deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \[OpenCurlyDoubleQuote]AS \
+IS\[CloseCurlyDoubleQuote], WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.\
+\>", "Text"]
 }, Open  ]]
 }, Open  ]]
 },
